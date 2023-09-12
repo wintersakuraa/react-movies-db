@@ -1,5 +1,6 @@
 import 'react-multi-carousel/lib/styles.css'
-import { Typography } from '@mui/material'
+
+import { Box, Typography } from '@mui/material'
 
 import { CastMemberCard } from './CastMemberCard'
 
@@ -11,7 +12,7 @@ export const CastGallery = () => {
   const { cast } = useAppSelector((state) => state.movies)
 
   return (
-    <div className={'parent'}>
+    <Box className="parent">
       <Typography variant="h3" marginTop={5} gutterBottom>
         Cast
       </Typography>
@@ -21,6 +22,6 @@ export const CastGallery = () => {
           <CastMemberCard key={member.id} member={member} />
         ))}
       </Slider>
-    </div>
+    </Box>
   )
 }

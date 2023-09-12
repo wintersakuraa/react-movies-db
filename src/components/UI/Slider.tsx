@@ -3,7 +3,6 @@ import { FC, ReactNode } from 'react'
 import Carousel from 'react-multi-carousel'
 
 import 'react-multi-carousel/lib/styles.css'
-import './Slider.css'
 
 const responsive = {
   desktop: {
@@ -33,10 +32,9 @@ export const Slider: FC<SliderProps> = ({ children }) => {
       responsive={responsive}
       swipeable={true}
       draggable={false}
-      showDots={true}
+      showDots={false}
       infinite={true}
       partialVisible={false}
-      dotListClass="custom-dot-list-style"
     >
       {children}
     </Carousel>

@@ -19,4 +19,7 @@ export const moviesService = {
   getCast(id: number): Response<CastResponse> {
     return apiService.get(URLS.movies.cast(id))
   },
+  searchMovie(query: string): Response<PaginationResult<Movie>> {
+    return apiService.get(URLS.search.movie, { params: { query } })
+  },
 }

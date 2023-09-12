@@ -10,13 +10,13 @@ export const Pagination = () => {
   const { totalPages } = useAppSelector((state) => state.movies)
   const [query, setQuery] = useSearchParams({ page: '1' })
 
-  const handlePageChange = (event: ChangeEvent<unknown>, page: number) => {
+  const handlePageChange = (_: ChangeEvent<unknown>, page: number) => {
     setQuery({ page: String(page) })
   }
 
   return (
     <>
-      {totalPages && (
+      {totalPages > 1 ? (
         <Box
           sx={{
             justifyContent: 'center',
@@ -32,7 +32,7 @@ export const Pagination = () => {
             size="large"
           />
         </Box>
-      )}
+      ) : null}
     </>
   )
 }

@@ -5,6 +5,6 @@ import { GenresResponse } from 'src/types/genre.types'
 
 export const genreService = {
   getAll(): Response<GenresResponse> {
-    return apiService.get(URLS.genres)
+    return apiService.get(URLS.genres.movieList)
   },
 }

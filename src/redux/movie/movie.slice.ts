@@ -1,12 +1,19 @@
-import { createSlice, isPending, isRejected } from '@reduxjs/toolkit'
+import {
+  createSlice,
+  isPending,
+  isRejected,
+  isFulfilled,
+  PayloadAction,
+} from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 
-import { getAll, getById, getCast } from './movie.thunks'
+import { getAll, getById, getCast, searchMovie } from './movie.thunks'
 
 import { CastMember, Movie, MovieDetails } from 'src/types'
 
 interface MoviesState {
   movies: Movie[]
+  searchTerm: string
   movie: MovieDetails | null
   cast: CastMember[]
   totalPages: number
@@ -16,6 +23,7 @@ interface MoviesState {
 
 const initialState: MoviesState = {
   movies: [],
+  searchTerm: '',
   movie: null,
   cast: [],
   totalPages: 0,
@@ -26,16 +34,13 @@ const initialState: MoviesState = {
 export const movieSlice = createSlice({
   name: 'movieSlice',
   initialState,
-  reducers: {},
+  reducers: {
+    setSearchTerm: (state, action: PayloadAction<string>) => {
+      state.searchTerm = action.payload
+    },
+  },
   extraReducers: (builder) =>
     builder
-      .addCase(getAll.fulfilled, (state, action) => {
-        const { results, total_pages: totalPages } = action.payload
-
-        state.movies = results
-        state.totalPages = totalPages > 500 ? 500 : totalPages
-        state.isLoading = false
-      })
       .addCase(getById.fulfilled, (state, action) => {
         state.movie = action.payload
         state.isLoading = false
@@ -44,15 +49,25 @@ export const movieSlice = createSlice({
         state.cast = action.payload.cast
         state.isLoading = false
       })
-      .addMatcher(isPending(getAll, getById, getCast), (state) => {
+      .addMatcher(isFulfilled(getAll, searchMovie), (state, action) => {
+        const { results, total_pages: totalPages } = action.payload
+
+        state.movies = results
+        state.totalPages = totalPages > 500 ? 500 : totalPages
+        state.isLoading = false
+      })
+      .addMatcher(isPending(getAll, getById, getCast, searchMovie), (state) => {
         state.isLoading = true
       })
-      .addMatcher(isRejected(getAll, getById, getCast), (state, action) => {
-        const axiosError = action.payload as AxiosError
+      .addMatcher(
+        isRejected(getAll, getById, getCast, searchMovie),
+        (state, action) => {
+          const axiosError = action.payload as AxiosError
 
-        state.error = axiosError.message
-        state.isLoading = false
-      }),
+          state.error = axiosError.message
+          state.isLoading = false
+        },
+      ),
 })
 
 const { reducer: movieReducer, actions } = movieSlice
@@ -61,6 +76,7 @@ const movieActions = {
   getAll,
   getById,
   getCast,
+  searchMovie,
 }
 
 export { movieReducer, movieActions }

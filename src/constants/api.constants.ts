@@ -9,6 +9,10 @@ export const URLS = {
     byId: getMovieById,
     cast: (id: number): string => `${getMovieById(id)}/credits`,
   },
-  genres: 'genre/movie/list',
-  search: 'search/movie',
+  genres: {
+    movieList: 'genre/movie/list',
+  },
+  search: {
+    movie: 'search/movie',
+  },
 }

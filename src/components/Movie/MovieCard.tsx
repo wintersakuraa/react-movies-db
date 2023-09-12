@@ -23,13 +23,11 @@ export const MovieCard: FC<MovieCardProps> = ({ movie }) => {
       }}
     >
       <Link to={PATHS.movies.byId(id)}>
-        {poster_path && (
-          <Image
-            path={poster_path}
-            alt={title}
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          />
-        )}
+        <Image
+          path={poster_path}
+          alt={title}
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        />
 
         <ImageListItemBar
           title={title}

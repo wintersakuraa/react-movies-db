@@ -14,6 +14,7 @@ export const MoviesDetailsPage = () => {
   useEffect(() => {
     if (rawId) {
       const id = Number(rawId)
+
       dispatch(movieActions.getById(id))
       dispatch(movieActions.getCast(id))
     }

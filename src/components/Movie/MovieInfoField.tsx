@@ -1,28 +1,38 @@
 import { FC, ReactNode } from 'react'
 
-import { Divider, Typography } from '@mui/material'
+import { Box, Divider, SxProps, Typography } from '@mui/material'
 
 interface MovieInfoFieldProps {
-  title: string
-  info: string | ReactNode
+  title?: string
+  withDivider?: boolean
+  sx?: SxProps
+  children?: ReactNode
 }
 
-export const MovieInfoField: FC<MovieInfoFieldProps> = ({ title, info }) => {
+export const MovieInfoField: FC<MovieInfoFieldProps> = ({
+  title,
+  withDivider = false,
+  sx,
+  children,
+}) => {
   return (
-    <>
-      <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-        {title}:
-      </Typography>
+    <Box sx={sx}>
+      {title && (
+        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+          {title}:
+        </Typography>
+      )}
 
       <Typography
-        component={typeof info === 'string' ? 'h6' : 'div'}
         variant="body1"
+        component="div"
         gutterBottom
+        sx={{ fontSize: 18 }}
       >
-        {info}
+        {children}
       </Typography>
 
-      <Divider sx={{ mb: 2 }} />
-    </>
+      {withDivider && <Divider sx={{ mb: 2 }} />}
+    </Box>
   )
 }

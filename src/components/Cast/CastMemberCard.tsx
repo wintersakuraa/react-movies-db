@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Box, Typography } from '@mui/material'
+import { ImageListItem, ImageListItemBar } from '@mui/material'
 
 import { Image } from 'src/components'
 import { CastMember } from 'src/types'
@@ -15,26 +15,26 @@ export const CastMemberCard: FC<CastMemberCardProps> = ({ member }) => {
   const { name, profile_path } = member
 
   return (
-    <Box
+    <ImageListItem
+      component="span"
       sx={{
-        m: '0 20px',
+        m: '0 20px 50px 0',
+        height: '0.8rem',
         overflow: 'hidden',
       }}
     >
       <Image
         path={profile_path}
         alt={name}
-        style={{ width: '100%', height: '100%' }}
+        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
       />
 
-      <Typography
-        gutterBottom
-        sx={{ mt: 2, mb: 5 }}
-        variant="h6"
-        component="div"
-      >
-        {name}
-      </Typography>
-    </Box>
+      <ImageListItemBar
+        title={name}
+        sx={{
+          backgroundColor: 'rgba(0, 0, 0, 0.88)',
+        }}
+      />
+    </ImageListItem>
   )
 }

@@ -12,7 +12,7 @@ import {
 
 export const getAll = createAsyncThunk<
   PaginationResult<Movie>,
-  Partial<MoviesQueryParams>
+  Partial<MoviesQueryParams> | undefined
 >('movieSlice/getAll', async (params, { rejectWithValue }) => {
   try {
     const defaultParams: MoviesQueryParams = {
@@ -45,6 +45,18 @@ export const getCast = createAsyncThunk<CastResponse, number>(
   async (id, { rejectWithValue }) => {
     try {
       const { data } = await moviesService.getCast(id)
+      return data
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  },
+)
+
+export const searchMovie = createAsyncThunk<PaginationResult<Movie>, string>(
+  'movieSlice/searchMovie',
+  async (searchTerm, { rejectWithValue }) => {
+    try {
+      const { data } = await moviesService.searchMovie(searchTerm)
       return data
     } catch (error) {
       return rejectWithValue(error)

@@ -67,7 +67,7 @@ export const MultiSelect = ({
       }}
     >
       <FormControl sx={{ flex: 1, my: 1 }}>
-        <InputLabel>Select Genres</InputLabel>
+        <InputLabel>{inputLable}</InputLabel>
 
         <Select
           multiple

@@ -18,6 +18,8 @@ export const MoviesPage = () => {
   const [query] = useSearchParams({ page: '1' })
   const {
     movies,
+    totalPages,
+    searchTerm,
     isLoading: isLoadingMovies,
     error: movieError,
   } = useAppSelector((state) => state.movies)
@@ -29,16 +31,24 @@ export const MoviesPage = () => {
   } = useAppSelector((state) => state.genres)
 
   useEffect(() => {
-    const genreIds = selectedGenreIds.join(',')
-
-    dispatch(
-      movieActions.getAll({
-        page: Number(query.get(SearchParams.PAGE)),
-        with_genres: genreIds,
-      }),
-    )
-
     dispatch(genreActions.getAll())
+  }, [])
+
+  useEffect(() => {
+    const genreIds = selectedGenreIds.join(',')
+    const page = Number(query.get(SearchParams.PAGE))
+
+    if (searchTerm && !genreIds) {
+      dispatch(movieActions.searchMovie(searchTerm))
+      return
+    }
+
+    const params = {
+      page: page > totalPages ? 1 : page,
+      with_genres: genreIds,
+    }
+
+    dispatch(movieActions.getAll(params))
   }, [query.get(SearchParams.PAGE), selectedGenreIds])
 
   const handleChange = (event: SelectChangeEvent<string[]>) => {

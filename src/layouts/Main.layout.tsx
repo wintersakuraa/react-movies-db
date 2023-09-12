@@ -1,23 +1,37 @@
-import { FC } from 'react'
+import { FC, useEffect, useMemo } from 'react'
 
 import { Container, CssBaseline } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { Outlet } from 'react-router-dom'
 
 import { Header } from 'src/components'
-
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-  typography: {
-    fontFamily: ['"Open Sans"', 'Roboto'].join(','),
-  },
-})
+import { useAppDispatch, useAppSelector } from 'src/hooks'
+import { themeActions } from 'src/redux'
+import { ThemeMode } from 'src/types'
 
 export const MainLayout: FC = () => {
+  const dipatch = useAppDispatch()
+  const { mode } = useAppSelector((state) => state.theme)
+
+  useEffect(() => {
+    dipatch(themeActions.getFromLocalStorage())
+  }, [])
+
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: mode || ThemeMode.DARK,
+        },
+        typography: {
+          fontFamily: ['Poppins', 'Roboto'].join(','),
+        },
+      }),
+    [mode],
+  )
+
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       <Header />
 
