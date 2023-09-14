@@ -1,13 +1,14 @@
-const getMovieById = (id: number): string => `/movie/${id}`
-
 export const API_ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN
 export const BASE_URL = process.env.REACT_APP_API_URL
 
 export const URLS = {
   movies: {
-    base: '/discover/movie',
-    byId: getMovieById,
-    cast: (id: number): string => `${getMovieById(id)}/credits`,
+    all: '/discover/movie',
+    popular: '/movie/popular',
+    topRated: '/movie/top_rated',
+    upcoming: '/movie/upcoming',
+    byId: (id: number): string => `/movie/${id}`,
+    cast: (id: number): string => `/movie/${id}/credits`,
   },
   genres: {
     movieList: 'genre/movie/list',

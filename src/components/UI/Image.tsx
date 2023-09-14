@@ -2,8 +2,9 @@ import { CSSProperties, FC } from 'react'
 
 import { Image as MuiImage } from 'mui-image'
 
-import noImage from '../../assets/images/no-image.jpg'
+import { Loader } from './Loader'
 
+import noImage from 'src/assets/images/no-image.jpg'
 import { getImageUrl } from 'src/utils'
 
 interface ImageProps {
@@ -18,7 +19,9 @@ export const Image: FC<ImageProps> = ({ path, alt, style }) => {
       src={path ? getImageUrl(path) : noImage}
       alt={alt}
       style={style}
-      duration={0}
+      duration={700}
+      showLoading={<Loader />}
+      easing="ease-in-out"
     />
   )
 }

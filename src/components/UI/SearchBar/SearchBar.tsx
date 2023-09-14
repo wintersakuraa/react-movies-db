@@ -12,7 +12,7 @@ interface SearchBarProps {
 }
 
 export const SearchBar: FC<SearchBarProps> = ({
-  onInputChange: handleSearch,
+  onInputChange,
   sx,
   disabled = false,
 }) => {
@@ -20,7 +20,7 @@ export const SearchBar: FC<SearchBarProps> = ({
 
   useEffect(() => {
     const newTimeout = setTimeout(() => {
-      handleSearch(searchValue)
+      onInputChange(searchValue)
     }, 700)
 
     return () => clearTimeout(newTimeout)

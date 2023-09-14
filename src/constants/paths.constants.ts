@@ -4,7 +4,8 @@ const MOVIES_ROOT = '/movies'
 
 export const PATHS = {
   movies: {
-    base: MOVIES_ROOT,
+    base: `${MOVIES_ROOT}`,
+    all: `${MOVIES_ROOT}/all`,
     byId: (id: number): string => getPathById(MOVIES_ROOT, id),
   },
 }

@@ -1,0 +1,15 @@
+.gd-carousel {
+  position: unset;
+}
+
+.react-multiple-carousel__arrow {
+  position: absolute;
+}
+
+.react-multiple-carousel__arrow--left {
+  left: calc(-3% + 1px);
+}
+
+.react-multiple-carousel__arrow--right {
+  right: calc(-3% + 1px);
+}

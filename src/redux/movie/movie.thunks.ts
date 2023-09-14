@@ -28,6 +28,42 @@ export const getAll = createAsyncThunk<
   }
 })
 
+export const getPopular = createAsyncThunk<Movie[]>(
+  'movieSlice/getPopular',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await moviesService.getPopular()
+      return data.results
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  },
+)
+
+export const getTopRated = createAsyncThunk<Movie[]>(
+  'movieSlice/getTopRated',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await moviesService.getTopRated()
+      return data.results
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  },
+)
+
+export const getUpcoming = createAsyncThunk<Movie[]>(
+  'movieSlice/getUpcoming',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await moviesService.getUpcoming()
+      return data.results
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  },
+)
+
 export const getById = createAsyncThunk<MovieDetails, number>(
   'movieSlice/getById',
   async (id, { rejectWithValue }) => {

@@ -6,7 +6,7 @@ import { CastGallery, MovieInfo, ErrorLoaderFallback } from 'src/components'
 import { useAppDispatch, useAppSelector } from 'src/hooks'
 import { movieActions } from 'src/redux'
 
-export const MoviesDetailsPage = () => {
+export const MovieDetailsPage = () => {
   const dispatch = useAppDispatch()
   const { id: rawId } = useParams<{ id: string }>()
   const { isLoading, error } = useAppSelector((state) => state.movies)

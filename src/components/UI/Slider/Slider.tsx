@@ -1,8 +1,10 @@
 import { FC, ReactNode } from 'react'
 
+import { Container } from '@mui/material'
 import Carousel from 'react-multi-carousel'
 
 import 'react-multi-carousel/lib/styles.css'
+import './Slider.css'
 
 const responsive = {
   desktop: {
@@ -28,15 +30,18 @@ interface SliderProps {
 
 export const Slider: FC<SliderProps> = ({ children }) => {
   return (
-    <Carousel
-      responsive={responsive}
-      swipeable={true}
-      draggable={false}
-      showDots={false}
-      infinite={true}
-      partialVisible={false}
-    >
-      {children}
-    </Carousel>
+    <Container maxWidth={false} sx={{ position: 'relative' }}>
+      <Carousel
+        responsive={responsive}
+        swipeable={true}
+        draggable={false}
+        showDots={false}
+        infinite={true}
+        partialVisible={false}
+        className="gd-carousel"
+      >
+        {children}
+      </Carousel>
+    </Container>
   )
 }

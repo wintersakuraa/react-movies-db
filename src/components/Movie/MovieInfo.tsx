@@ -1,7 +1,12 @@
-import { Box, Chip, Rating, Typography } from '@mui/material'
+import { Box, Chip, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
-import { ErrorFallback, Image, MovieInfoField } from 'src/components'
+import {
+  ErrorFallback,
+  Image,
+  MovieInfoField,
+  StarRating,
+} from 'src/components'
 import { PATHS } from 'src/constants'
 import { useAppDispatch, useAppSelector } from 'src/hooks'
 import { genreActions } from 'src/redux'
@@ -29,7 +34,7 @@ export const MovieInfo = () => {
 
   const handleClick = (genre: Genre) => {
     dispatch(genreActions.setSelectedGenreIds([String(genre.id)]))
-    navigate(PATHS.movies.base)
+    navigate(PATHS.movies.all)
   }
 
   return (
@@ -77,7 +82,13 @@ export const MovieInfo = () => {
           {tagline && <MovieInfoField withDivider>{tagline}</MovieInfoField>}
         </Typography>
 
-        <Image alt={title} path={backdrop_path} style={{ maxHeight: '82vh' }} />
+        <Image
+          alt={title}
+          path={backdrop_path}
+          style={{
+            maxHeight: '82vh',
+          }}
+        />
       </Box>
 
       {overview && <MovieInfoField sx={{ mb: 5 }}>{overview}</MovieInfoField>}
@@ -110,7 +121,7 @@ export const MovieInfo = () => {
       )}
 
       <MovieInfoField title="Rating">
-        <Rating value={vote_average} precision={0.5} readOnly max={10} />
+        <StarRating rating={vote_average} />
       </MovieInfoField>
     </Box>
   )

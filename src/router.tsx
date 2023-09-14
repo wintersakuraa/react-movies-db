@@ -2,7 +2,7 @@ import { createBrowserRouter, Navigate } from 'react-router-dom'
 
 import { PATHS } from './constants'
 import { MainLayout } from './layouts'
-import { MoviesDetailsPage, MoviesPage } from './pages'
+import { AllMoviesPage, MainPage, MovieDetailsPage } from './pages'
 
 export const router = createBrowserRouter([
   {
@@ -15,11 +15,16 @@ export const router = createBrowserRouter([
       },
       {
         path: PATHS.movies.base,
-        element: <MoviesPage />,
+        element: <MainPage />,
       },
       {
+        path: PATHS.movies.all,
+        element: <AllMoviesPage />,
+      },
+
+      {
         path: `${PATHS.movies.base}/:id`,
-        element: <MoviesDetailsPage />,
+        element: <MovieDetailsPage />,
       },
     ],
   },

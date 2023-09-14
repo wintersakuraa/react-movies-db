@@ -20,7 +20,7 @@ interface MultiSelectOption {
 }
 
 interface MultiSelectProps {
-  inputLable: string
+  inputLabel: string
   options: MultiSelectOption[]
   selectedOptions: string[]
   handleChange: (event: SelectChangeEvent<string[]>) => void
@@ -29,7 +29,7 @@ interface MultiSelectProps {
 }
 
 export const MultiSelect = ({
-  inputLable,
+  inputLabel,
   options,
   selectedOptions,
   handleChange,
@@ -67,13 +67,13 @@ export const MultiSelect = ({
       }}
     >
       <FormControl sx={{ flex: 1, my: 1 }}>
-        <InputLabel>{inputLable}</InputLabel>
+        <InputLabel>{inputLabel}</InputLabel>
 
         <Select
           multiple
           value={selectedOptions}
           onChange={handleChange}
-          input={<OutlinedInput label={inputLable} />}
+          input={<OutlinedInput label={inputLabel} />}
           renderValue={renderValue}
         >
           {options.map((option: MultiSelectOption) => (

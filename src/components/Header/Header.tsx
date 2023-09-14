@@ -1,25 +1,32 @@
 import { ChangeEvent } from 'react'
 
-import HdIcon from '@mui/icons-material/Hd'
-import {
-  AppBar,
-  Avatar,
-  Box,
-  Container,
-  IconButton,
-  Toolbar,
-  Tooltip,
-  Typography,
-} from '@mui/material'
-import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
+import MovieFilterIcon from '@mui/icons-material/MovieFilter'
+import WhatshotIcon from '@mui/icons-material/Whatshot'
+import { AppBar, Avatar, Box, Container, Toolbar, Tooltip } from '@mui/material'
+import { useLocation, useNavigate } from 'react-router-dom'
 
-import user from '../assets/images/user.png'
+import { DesktopNav } from './DesktopNav'
+import { MobileNav } from './MobileNav'
 
+import user from 'src/assets/images/user.png'
 import { SearchBar, ThemeSwitcher } from 'src/components'
 import { PATHS } from 'src/constants'
 import { useAppDispatch, useAppSelector } from 'src/hooks'
 import { movieActions, themeActions } from 'src/redux'
-import { ThemeMode } from 'src/types'
+import { NavbarElement, ThemeMode } from 'src/types'
+
+const navbarItems: NavbarElement[] = [
+  {
+    title: 'Main',
+    path: PATHS.movies.base,
+    icon: <WhatshotIcon />,
+  },
+  {
+    title: 'All Movies',
+    path: PATHS.movies.all,
+    icon: <MovieFilterIcon />,
+  },
+]
 
 export const Header = () => {
   const dispatch = useAppDispatch()
@@ -36,7 +43,7 @@ export const Header = () => {
 
     dispatch(movieActions.setSearchTerm(searchValue))
     dispatch(movieActions.searchMovie(searchValue))
-    if (pathname !== PATHS.movies.base) navigate(PATHS.movies.base)
+    if (pathname !== PATHS.movies.all) navigate(PATHS.movies.all)
   }
 
   const handleThemeSwitch = (event: ChangeEvent<HTMLInputElement>) => {
@@ -50,59 +57,49 @@ export const Header = () => {
       sx={{ ...(mode === ThemeMode.LIGHT && { bgcolor: 'primary.dark' }) }}
     >
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
           <Box
             sx={{
-              flexGrow: { xs: 0, md: 1 },
+              flexGrow: { xs: 0, md: 0 },
               display: 'flex',
               justifyContent: { xs: 'center', md: 'space-between' },
+              alignItems: 'center',
             }}
           >
-            <IconButton
-              component={RouterLink}
-              to={PATHS.movies.base}
-              sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}
-            >
-              <HdIcon />
-            </IconButton>
-
-            <Typography
-              variant="h6"
-              noWrap
-              component={RouterLink}
-              to={PATHS.movies.base}
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              Movies DB
-            </Typography>
+            <DesktopNav navbarItems={navbarItems} />
+            <MobileNav
+              navbarItems={navbarItems}
+              handleThemeSwitch={handleThemeSwitch}
+            />
           </Box>
 
-          <SearchBar
-            disabled={!!selectedGenreIds.length}
-            onInputChange={onInputChange}
+          <Box
             sx={{
-              flexGrow: { xs: 1, md: 0 },
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
             }}
-          />
+          >
+            <Tooltip
+              title={!!selectedGenreIds.length ? 'Clear filters first' : ''}
+              enterTouchDelay={0}
+            >
+              <span>
+                <SearchBar
+                  disabled={!!selectedGenreIds.length}
+                  onInputChange={onInputChange}
+                  sx={{ width: '100%' }}
+                />
+              </span>
+            </Tooltip>
 
-          <Box>
             <ThemeSwitcher
               checked={mode === ThemeMode.DARK}
               onChange={handleThemeSwitch}
               mode={ThemeMode.DARK}
-              sx={{ m: 1 }}
+              sx={{ m: 1, display: { xs: 'none', md: 'flex' } }}
             />
-          </Box>
 
-          <Box>
             <Tooltip title="User">
               <Avatar alt="User" src={user} />
             </Tooltip>

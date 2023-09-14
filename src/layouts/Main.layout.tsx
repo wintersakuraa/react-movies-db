@@ -10,11 +10,11 @@ import { themeActions } from 'src/redux'
 import { ThemeMode } from 'src/types'
 
 export const MainLayout: FC = () => {
-  const dipatch = useAppDispatch()
+  const dispatch = useAppDispatch()
   const { mode } = useAppSelector((state) => state.theme)
 
   useEffect(() => {
-    dipatch(themeActions.getFromLocalStorage())
+    dispatch(themeActions.getFromLocalStorage())
   }, [])
 
   const theme = useMemo(
