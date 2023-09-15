@@ -1,4 +1,6 @@
+import { CreditsResponse } from './cast.types'
 import { Genre } from './genre.types'
+import { VideoResponse } from './video.types'
 
 export interface Movie {
   id: number
@@ -30,6 +32,8 @@ export interface MovieDetails {
   video: boolean
   vote_average: number
   vote_count: number
+  videos: VideoResponse
+  credits: CreditsResponse
 }
 
 export interface MoviesQueryParams {

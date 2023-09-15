@@ -2,7 +2,6 @@ import { apiService } from './api.service'
 
 import { URLS } from 'src/constants'
 import {
-  CastResponse,
   Movie,
   MovieDetails,
   MoviesQueryParams,
@@ -24,10 +23,9 @@ export const moviesService = {
     return apiService.get(URLS.movies.upcoming)
   },
   getById(id: number): Response<MovieDetails> {
-    return apiService.get(URLS.movies.byId(id))
-  },
-  getCast(id: number): Response<CastResponse> {
-    return apiService.get(URLS.movies.cast(id))
+    return apiService.get(URLS.movies.byId(id), {
+      params: { append_to_response: 'videos,credits' },
+    })
   },
   searchMovie(query: string): Response<PaginationResult<Movie>> {
     return apiService.get(URLS.search.movie, { params: { query } })

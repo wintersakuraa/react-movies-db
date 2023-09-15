@@ -7,7 +7,7 @@ import { useAppSelector } from 'src/hooks'
 import { CastMember } from 'src/types'
 
 export const CastGallery = () => {
-  const { cast } = useAppSelector((state) => state.movies)
+  const { movie } = useAppSelector((state) => state.movies)
 
   return (
     <Box className="parent">
@@ -16,7 +16,7 @@ export const CastGallery = () => {
       </Typography>
 
       <Slider>
-        {cast.map((member: CastMember) => (
+        {movie?.credits.cast.map((member: CastMember) => (
           <Card
             key={member.id}
             title={member.name}

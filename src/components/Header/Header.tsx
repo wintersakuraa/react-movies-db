@@ -33,7 +33,7 @@ export const Header = () => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const { mode } = useAppSelector((state) => state.theme)
-  const { selectedGenreIds } = useAppSelector((state) => state.genres)
+  const { selectedGenreIds } = useAppSelector((state) => state.movies)
 
   const onInputChange = (searchValue: string) => {
     if (!searchValue) {

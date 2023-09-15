@@ -1,13 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { moviesService } from 'src/services'
+import { moviesService, genreService } from 'src/services'
 import {
-  CastResponse,
   Movie,
   MovieDetails,
   MoviesQueryParams,
   MoviesSortOptions,
   PaginationResult,
+  GenresResponse,
 } from 'src/types'
 
 export const getAll = createAsyncThunk<
@@ -76,11 +76,11 @@ export const getById = createAsyncThunk<MovieDetails, number>(
   },
 )
 
-export const getCast = createAsyncThunk<CastResponse, number>(
-  'movieSlice/getCast',
-  async (id, { rejectWithValue }) => {
+export const getGenres = createAsyncThunk<GenresResponse>(
+  'movieSlice/getGenres',
+  async (_, { rejectWithValue }) => {
     try {
-      const { data } = await moviesService.getCast(id)
+      const { data } = await genreService.getAll()
       return data
     } catch (error) {
       return rejectWithValue(error)

@@ -13,7 +13,7 @@ import {
 } from 'src/components'
 import { PATHS } from 'src/constants'
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux.hooks'
-import { genreActions, movieActions } from 'src/redux'
+import { movieActions } from 'src/redux'
 import { Movie, SearchParams } from 'src/types'
 
 export const AllMoviesPage = () => {
@@ -22,19 +22,15 @@ export const AllMoviesPage = () => {
   const {
     movies,
     totalPages,
-    searchTerm,
-    isLoading: isLoadingMovies,
-    error: movieError,
-  } = useAppSelector((state) => state.movies)
-  const {
     genres,
     selectedGenreIds,
-    isLoading: isLoadingGenres,
-    error: genreError,
-  } = useAppSelector((state) => state.genres)
+    searchTerm,
+    isLoading,
+    error,
+  } = useAppSelector((state) => state.movies)
 
   useEffect(() => {
-    dispatch(genreActions.getAll())
+    dispatch(movieActions.getGenres())
   }, [])
 
   useEffect(() => {
@@ -55,26 +51,23 @@ export const AllMoviesPage = () => {
   }, [query.get(SearchParams.PAGE), selectedGenreIds])
 
   const handleChange = (event: SelectChangeEvent<string[]>) => {
-    dispatch(genreActions.setSelectedGenreIds(event.target.value as string[]))
+    dispatch(movieActions.setSelectedGenreIds(event.target.value as string[]))
   }
 
   const handleDelete = (value: string) => {
     dispatch(
-      genreActions.setSelectedGenreIds(
+      movieActions.setSelectedGenreIds(
         selectedGenreIds.filter((id: string) => value !== id),
       ),
     )
   }
 
   const handleClear = () => {
-    dispatch(genreActions.setSelectedGenreIds([]))
+    dispatch(movieActions.setSelectedGenreIds([]))
   }
 
   return (
-    <ErrorLoaderFallback
-      errors={[movieError, genreError]}
-      isLoading={isLoadingMovies || isLoadingGenres}
-    >
+    <ErrorLoaderFallback errors={[error]} isLoading={isLoading}>
       <MultiSelect
         inputLabel="Select Genres"
         options={genres}

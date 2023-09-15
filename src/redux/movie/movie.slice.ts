@@ -10,23 +10,24 @@ import { AxiosError } from 'axios'
 import {
   getAll,
   getById,
-  getCast,
+  getGenres,
   getPopular,
   getTopRated,
   getUpcoming,
   searchMovie,
 } from './movie.thunks'
 
-import { CastMember, Movie, MovieDetails } from 'src/types'
+import { Genre, Movie, MovieDetails } from 'src/types'
 
 interface MoviesState {
   movies: Movie[]
+  genres: Genre[]
+  selectedGenreIds: string[]
   popular: Movie[]
   topRated: Movie[]
   upcoming: Movie[]
   searchTerm: string
   movie: MovieDetails | null
-  cast: CastMember[]
   totalPages: number
   isLoading: boolean
   error: string
@@ -34,12 +35,13 @@ interface MoviesState {
 
 const initialState: MoviesState = {
   movies: [],
+  genres: [],
+  selectedGenreIds: [],
   popular: [],
   topRated: [],
   upcoming: [],
   searchTerm: '',
   movie: null,
-  cast: [],
   totalPages: 0,
   isLoading: false,
   error: '',
@@ -52,15 +54,14 @@ export const movieSlice = createSlice({
     setSearchTerm: (state, action: PayloadAction<string>) => {
       state.searchTerm = action.payload
     },
+    setSelectedGenreIds: (state, action: PayloadAction<string[]>) => {
+      state.selectedGenreIds = action.payload
+    },
   },
   extraReducers: (builder) =>
     builder
       .addCase(getById.fulfilled, (state, action) => {
         state.movie = action.payload
-        state.isLoading = false
-      })
-      .addCase(getCast.fulfilled, (state, action) => {
-        state.cast = action.payload.cast
         state.isLoading = false
       })
       .addCase(getPopular.fulfilled, (state, action) => {
@@ -81,6 +82,10 @@ export const movieSlice = createSlice({
         state.upcoming = results
         state.isLoading = false
       })
+      .addCase(getGenres.fulfilled, (state, action) => {
+        state.genres = action.payload.genres
+        state.isLoading = false
+      })
       .addMatcher(isFulfilled(getAll, searchMovie), (state, action) => {
         const { results, total_pages: totalPages } = action.payload
 
@@ -94,7 +99,7 @@ export const movieSlice = createSlice({
           getPopular,
           getTopRated,
           getById,
-          getCast,
+          getGenres,
           searchMovie,
         ),
         (state) => {
@@ -107,7 +112,7 @@ export const movieSlice = createSlice({
           getPopular,
           getTopRated,
           getById,
-          getCast,
+          getGenres,
           searchMovie,
         ),
         (state, action) => {
@@ -127,7 +132,7 @@ const movieActions = {
   getTopRated,
   getUpcoming,
   getById,
-  getCast,
+  getGenres,
   searchMovie,
 }
 

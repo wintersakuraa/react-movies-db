@@ -9,7 +9,7 @@ import {
 } from 'src/components'
 import { PATHS } from 'src/constants'
 import { useAppDispatch, useAppSelector } from 'src/hooks'
-import { genreActions } from 'src/redux'
+import { movieActions } from 'src/redux'
 import { Genre, ThemeMode } from 'src/types'
 import { formatMovieRuntime } from 'src/utils'
 
@@ -33,7 +33,7 @@ export const MovieInfo = () => {
   } = movie
 
   const handleClick = (genre: Genre) => {
-    dispatch(genreActions.setSelectedGenreIds([String(genre.id)]))
+    dispatch(movieActions.setSelectedGenreIds([String(genre.id)]))
     navigate(PATHS.movies.all)
   }
 

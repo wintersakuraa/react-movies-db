@@ -16,7 +16,6 @@ export const MovieDetailsPage = () => {
       const id = Number(rawId)
 
       dispatch(movieActions.getById(id))
-      dispatch(movieActions.getCast(id))
     }
   }, [])
 
