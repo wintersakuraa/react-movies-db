@@ -4,8 +4,6 @@ import { ImageListItem, ImageListItemBar, SxProps } from '@mui/material'
 
 import { Image } from 'src/components'
 
-import 'react-multi-carousel/lib/styles.css'
-
 interface CardProps {
   image: string
   title: string
@@ -15,7 +13,7 @@ interface CardProps {
 
 export const Card: FC<CardProps> = ({ image, title, subtitle, sx }) => {
   return (
-    <ImageListItem sx={{ ...sx }}>
+    <ImageListItem component="span" sx={{ ...sx, m: '0 10px 10px 10px' }}>
       <Image
         path={image}
         alt={title}

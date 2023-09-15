@@ -1,47 +1,46 @@
 import { FC, ReactNode } from 'react'
 
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import { Container } from '@mui/material'
-import Carousel from 'react-multi-carousel'
+import AliceCarousel from 'react-alice-carousel'
 
-import 'react-multi-carousel/lib/styles.css'
+import 'react-alice-carousel/lib/alice-carousel.css'
 import './Slider.css'
 
 const responsive = {
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 4,
-    slidesToSlide: 4,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 768 },
-    items: 3,
-    slidesToSlide: 3,
-  },
-  mobile: {
-    breakpoint: { max: 767, min: 464 },
-    items: 2,
-    slidesToSlide: 1,
-  },
+  0: { items: 1 },
+  512: { items: 2 },
+  700: { items: 3 },
+  1024: { items: 4 },
 }
 
 interface SliderProps {
-  children: ReactNode
+  children: ReactNode[]
 }
 
 export const Slider: FC<SliderProps> = ({ children }) => {
+  const renderNextButton = () => {
+    return <ArrowForwardIosIcon sx={{ cursor: 'pointer' }} />
+  }
+
+  const renderPrevButton = () => {
+    return <ArrowBackIosIcon sx={{ cursor: 'pointer' }} />
+  }
+
   return (
-    <Container maxWidth={false} sx={{ position: 'relative' }}>
-      <Carousel
+    <Container maxWidth={false}>
+      <AliceCarousel
+        disableDotsControls
+        keyboardNavigation
+        autoPlay
+        infinite
+        autoPlayInterval={5000}
         responsive={responsive}
-        swipeable={true}
-        draggable={false}
-        showDots={false}
-        infinite={true}
-        partialVisible={false}
-        className="gd-carousel"
-      >
-        {children}
-      </Carousel>
+        items={children}
+        renderPrevButton={renderPrevButton}
+        renderNextButton={renderNextButton}
+      />
     </Container>
   )
 }

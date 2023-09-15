@@ -1,16 +1,16 @@
-import 'react-multi-carousel/lib/styles.css'
-
 import { Box, Typography } from '@mui/material'
 
-import { Card, Slider } from 'src/components'
+import { Card, ErrorFallback, Slider } from 'src/components'
 import { useAppSelector } from 'src/hooks'
 import { CastMember } from 'src/types'
 
 export const CastGallery = () => {
   const { movie } = useAppSelector((state) => state.movies)
 
+  if (!movie) return <ErrorFallback errorMessage={'No movie'} />
+
   return (
-    <Box className="parent">
+    <Box>
       <Typography variant="h3" marginTop={5} gutterBottom>
         Cast
       </Typography>
@@ -22,7 +22,6 @@ export const CastGallery = () => {
             title={member.name}
             image={member.profile_path}
             sx={{
-              m: '0 10px 50px 10px',
               height: '0.7rem',
               overflow: 'hidden',
             }}

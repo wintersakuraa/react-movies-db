@@ -1,5 +1,3 @@
-import 'react-multi-carousel/lib/styles.css'
-
 import { FC } from 'react'
 
 import { Box, Typography } from '@mui/material'
@@ -28,7 +26,6 @@ export const MoviesCarousel: FC<MoviesCarouselProps> = ({ title, movies }) => {
               image={movie.poster_path}
               subtitle={<StarRating rating={movie.vote_average} />}
               sx={{
-                m: '0 10px 50px 10px',
                 '&:hover': {
                   opacity: 0.7,
                   transition: 'all .2s ease-in-out',

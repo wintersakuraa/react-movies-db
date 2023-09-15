@@ -44,6 +44,9 @@ dependencies:
   '@types/react':
     specifier: ^18.2.21
     version: 18.2.21
+  '@types/react-alice-carousel':
+    specifier: ^1.15.3
+    version: 1.15.3(react@18.2.0)
   '@types/react-dom':
     specifier: ^18.2.7
     version: 18.2.7
@@ -71,12 +74,12 @@ dependencies:
   react:
     specifier: ^18.2.0
     version: 18.2.0
+  react-alice-carousel:
+    specifier: ^2.7.1
+    version: 2.7.1(react@18.2.0)
   react-dom:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
-  react-multi-carousel:
-    specifier: ^2.8.4
-    version: 2.8.4
   react-redux:
     specifier: ^8.1.2
     version: 8.1.2(@types/react-dom@18.2.7)(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)
@@ -3130,6 +3133,15 @@ packages:
 
   /@types/range-parser@1.2.4:
     resolution: {integrity: sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==}
+    dev: false
+
+  /@types/react-alice-carousel@1.15.3(react@18.2.0):
+    resolution: {integrity: sha512-3tv5HALFTjS7ixUbBzkvEn7aDqPMxoYZkcISbkV58utCUNwJDznhKC/b+qqZv4SXMdRHGT1uU0U476OduKXwwg==}
+    deprecated: This is a stub types definition. react-alice-carousel provides its own type definitions, so you do not need this installed.
+    dependencies:
+      react-alice-carousel: 2.7.1(react@18.2.0)
+    transitivePeerDependencies:
+      - react
     dev: false
 
   /@types/react-dom@18.2.7:
@@ -9604,6 +9616,15 @@ packages:
       unpipe: 1.0.0
     dev: false
 
+  /react-alice-carousel@2.7.1(react@18.2.0):
+    resolution: {integrity: sha512-8ljKi5y+eqlsRkO4qRxEXIP0067w/4zvZvpJ66w+eAbeF0hIgC3iLeSmVtNc+F6ISzFsEJX0cOx7jIawXs0G8A==}
+    peerDependencies:
+      react: '>=15.4'
+    dependencies:
+      react: 18.2.0
+      vanilla-swipe: 2.4.1
+    dev: false
+
   /react-app-polyfill@3.0.0:
     resolution: {integrity: sha512-sZ41cxiU5llIB003yxxQBYrARBqe0repqPTTYBTmMqTz9szeBbE37BehCE891NZsmdZqqP+xWKdT3eo3vOzN8w==}
     engines: {node: '>=14'}
@@ -9681,11 +9702,6 @@ packages:
 
   /react-is@18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
-    dev: false
-
-  /react-multi-carousel@2.8.4:
-    resolution: {integrity: sha512-7Is5Wr+m2ebkR+oq2Su2tjUdBwpVtB2O6Tjb74KDNfxWe/FrsTQwezTJTk/r9cKCrRp9Li308v822/5bZm7XKg==}
-    engines: {node: '>=8'}
     dev: false
 
   /react-redux@8.1.2(@types/react-dom@18.2.7)(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1):
@@ -11231,6 +11247,10 @@ packages:
       '@types/istanbul-lib-coverage': 2.0.4
       convert-source-map: 1.9.0
       source-map: 0.7.4
+    dev: false
+
+  /vanilla-swipe@2.4.1:
+    resolution: {integrity: sha512-o6pfI0dipet88ZnPLV4Jx04Ia+U3xANh14vhROW2TOe/mrwk2JGG68+Z0BPoD1YUcQQEnK4SZBXkqFe+K1l7/w==}
     dev: false
 
   /vary@1.1.2:
