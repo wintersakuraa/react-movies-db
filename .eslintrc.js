@@ -54,6 +54,7 @@ module.exports = {
       },
     ],
     'no-shadow': 'off',
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'import/order': [
       'error',
       {

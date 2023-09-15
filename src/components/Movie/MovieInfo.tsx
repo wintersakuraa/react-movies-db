@@ -1,5 +1,9 @@
-import { Box, Chip, Typography } from '@mui/material'
+import { useState } from 'react'
+
+import NavigationIcon from '@mui/icons-material/Navigation'
+import { Box, Chip, Fab, Modal, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import YouTube, { YouTubeProps } from 'react-youtube'
 
 import {
   ErrorFallback,
@@ -10,14 +14,23 @@ import {
 import { PATHS } from 'src/constants'
 import { useAppDispatch, useAppSelector } from 'src/hooks'
 import { movieActions } from 'src/redux'
-import { Genre, ThemeMode } from 'src/types'
+import { Genre, ThemeMode, Video, VideoType } from 'src/types'
 import { formatMovieRuntime } from 'src/utils'
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  p: 4,
+}
 
 export const MovieInfo = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { movie } = useAppSelector((state) => state.movies)
   const { mode } = useAppSelector((state) => state.theme)
+  const [open, setOpen] = useState(false)
 
   if (!movie) return <ErrorFallback errorMessage={'No movie'} />
 
@@ -30,7 +43,16 @@ export const MovieInfo = () => {
     release_date,
     backdrop_path,
     vote_average,
+    videos,
   } = movie
+
+  const trailer = videos.results.find(
+    (video: Video) => video.type === VideoType.TRAILER,
+  )
+
+  const onPlayerReady: YouTubeProps['onReady'] = (event) => {
+    event.target.pauseVideo()
+  }
 
   const handleClick = (genre: Genre) => {
     dispatch(movieActions.setSelectedGenreIds([String(genre.id)]))
@@ -56,9 +78,10 @@ export const MovieInfo = () => {
             position: 'absolute',
             height: '100%',
             width: '100%',
-            boxShadow: 'inset 0px -120px 30px 0px #0000008c',
+            boxShadow: 'inset 0px -170px 30px 0px #0000008c',
           }}
         ></Box>
+
         <Typography
           sx={{
             fontWeight: 'bold',
@@ -80,6 +103,10 @@ export const MovieInfo = () => {
         >
           {title}
           {tagline && <MovieInfoField withDivider>{tagline}</MovieInfoField>}
+          <Fab onClick={() => setOpen(true)} variant="extended" color="primary">
+            <NavigationIcon />
+            Watch Trailer
+          </Fab>
         </Typography>
 
         <Image
@@ -89,6 +116,14 @@ export const MovieInfo = () => {
             maxHeight: '82vh',
           }}
         />
+
+        {trailer && (
+          <Modal open={open} keepMounted onClose={() => setOpen(false)}>
+            <Box sx={style}>
+              <YouTube videoId={trailer.key} onReady={onPlayerReady} />
+            </Box>
+          </Modal>
+        )}
       </Box>
 
       {overview && <MovieInfoField sx={{ mb: 5 }}>{overview}</MovieInfoField>}
