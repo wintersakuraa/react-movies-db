@@ -35,15 +35,23 @@ export const Header = () => {
   const { mode } = useAppSelector((state) => state.theme)
   const { selectedGenreIds } = useAppSelector((state) => state.movies)
 
-  const onInputChange = (searchValue: string) => {
-    if (!searchValue) {
-      dispatch(movieActions.getAll())
-      return
-    }
+  const handleNoSearchValue = () => {
+    if (pathname === PATHS.movies.all) dispatch(movieActions.getAll())
+  }
 
-    dispatch(movieActions.setSearchTerm(searchValue))
-    dispatch(movieActions.searchMovie(searchValue))
+  const handleSearchValue = (searchValue: string) => {
     if (pathname !== PATHS.movies.all) navigate(PATHS.movies.all)
+    dispatch(movieActions.searchMovie(searchValue))
+  }
+
+  const onInputChange = (searchValue: string) => {
+    dispatch(movieActions.setSearchTerm(searchValue))
+
+    if (!searchValue) {
+      handleNoSearchValue()
+    } else {
+      handleSearchValue(searchValue)
+    }
   }
 
   const handleThemeSwitch = (event: ChangeEvent<HTMLInputElement>) => {

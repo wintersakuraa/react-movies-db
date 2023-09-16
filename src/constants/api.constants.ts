@@ -8,7 +8,6 @@ export const URLS = {
     topRated: '/movie/top_rated',
     upcoming: '/movie/upcoming',
     byId: (id: number): string => `/movie/${id}`,
-    cast: (id: number): string => `/movie/${id}/credits`,
   },
   genres: {
     movieList: 'genre/movie/list',

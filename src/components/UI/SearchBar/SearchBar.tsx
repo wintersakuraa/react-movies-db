@@ -27,7 +27,7 @@ export const SearchBar: FC<SearchBarProps> = ({
   }, [searchValue])
 
   return (
-    <Search sx={{ width: 1 / 3, ...sx }}>
+    <Search sx={sx}>
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>

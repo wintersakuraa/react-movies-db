@@ -1,8 +1,8 @@
 import {
   createSlice,
+  isFulfilled,
   isPending,
   isRejected,
-  isFulfilled,
   PayloadAction,
 } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
@@ -65,21 +65,15 @@ export const movieSlice = createSlice({
         state.isLoading = false
       })
       .addCase(getPopular.fulfilled, (state, action) => {
-        const results = action.payload
-
-        state.popular = results
+        state.popular = action.payload
         state.isLoading = false
       })
       .addCase(getTopRated.fulfilled, (state, action) => {
-        const results = action.payload
-
-        state.topRated = results
+        state.topRated = action.payload
         state.isLoading = false
       })
       .addCase(getUpcoming.fulfilled, (state, action) => {
-        const results = action.payload
-
-        state.upcoming = results
+        state.upcoming = action.payload
         state.isLoading = false
       })
       .addCase(getGenres.fulfilled, (state, action) => {
