@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import NavigationIcon from '@mui/icons-material/Navigation'
-import { Box, Chip, Fab, Modal, Typography } from '@mui/material'
+import { Box, Chip, Divider, Fab, Modal, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import YouTube, { YouTubeProps } from 'react-youtube'
 
@@ -102,7 +102,13 @@ export const MovieInfo = () => {
           gutterBottom
         >
           {title}
-          {tagline && <MovieInfoField withDivider>{tagline}</MovieInfoField>}
+          {tagline ? (
+            <MovieInfoField sx={{ mt: 1 }} withDivider>
+              {tagline}
+            </MovieInfoField>
+          ) : (
+            <Divider sx={{ mb: 2 }} />
+          )}
           <Fab onClick={() => setOpen(true)} variant="extended" color="primary">
             <NavigationIcon />
             Watch Trailer
