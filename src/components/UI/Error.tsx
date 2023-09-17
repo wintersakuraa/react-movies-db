@@ -15,15 +15,11 @@ export const ErrorFallback: FC<ErrorFallbackProps> = ({ errorMessage }) => {
         alignItems: 'center',
         flexDirection: 'column',
         minHeight: '80vh',
+        color: 'error.main',
       }}
     >
-      <Typography variant="h1" style={{ color: 'white' }}>
-        Error
-      </Typography>
-
-      <Typography variant="h6" style={{ color: 'white' }}>
-        {errorMessage}
-      </Typography>
+      <Typography variant="h1">Error</Typography>
+      <Typography variant="h6">{errorMessage}</Typography>
     </Box>
   )
 }
